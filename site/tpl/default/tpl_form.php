@@ -70,6 +70,13 @@ class jtt_tpl_form extends JoomlaTuneTemplate
             <?php
             $this->getFormFields($htmlFormPrepend);
             ?>
+                <p>
+	<span>
+		<input id="comments-form-phone" type="text" name="phone" value=""
+               maxlength="<?php echo $this->getVar('comment-name-maxlength'); ?>" size="22" tabindex="1"/>
+		<label for="comments-form-phone"><?php echo 'Ваш контактный номер'; ?></label>
+	</span>
+                </p>
             <?php
             if ($this->getVar('comments-form-user-name', 1) == 1) {
                 $text = ($this->getVar('comments-form-user-name-required', 1) == 0) ? JText::_('FORM_NAME') : JText::_('FORM_NAME_REQUIRED');
@@ -81,6 +88,21 @@ class jtt_tpl_form extends JoomlaTuneTemplate
 		<label for="comments-form-name"><?php echo $text; ?></label>
 	</span>
                 </p>
+                <p>
+	<span>
+		<input id="comments-form-middlename" type="text" name="middlename" value="Введите год минус день"
+               maxlength="30" size="22" tabindex="1"/>
+		<label for="comments-form-middlename"><?php echo 'Отчество (замените)'; ?></label>
+	</span>
+                </p>               
+                <p>
+	<span>
+		<input id="comments-form-surname" type="text" name="surname" value="_"
+               maxlength="30" size="22" tabindex="1"/>
+		<label for="comments-form-surname"><?php echo 'Фамилия (допишите последнюю букву)'; ?></label>
+	</span>
+                </p>
+
                 <?php
             }
             if ($this->getVar('comments-form-user-email', 1) == 1) {
@@ -94,8 +116,8 @@ class jtt_tpl_form extends JoomlaTuneTemplate
                 </p>
                 <?php
             }
-            if ($this->getVar('comments-form-user-homepage', 0) == 1) {
-                $text = ($this->getVar('comments-form-homepage-required', 1) == 0) ? JText::_('FORM_HOMEPAGE') : JText::_('FORM_HOMEPAGE_REQUIRED');
+            $text = ($this->getVar('comments-form-homepage-required', 1) == 0) ? JText::_('FORM_HOMEPAGE') : JText::_('FORM_HOMEPAGE_REQUIRED');
+            if ($this->getVar('comments-form-user-homepage', 0) == 1) {                
                 ?>
                 <p>
 	<span>
@@ -105,6 +127,14 @@ class jtt_tpl_form extends JoomlaTuneTemplate
                 </p>
                 <?php
             }
+                ?>
+                <p>
+	<span>
+		<input id="comments-form-email2" type="text" name="email2" value="" size="22" tabindex="2"/>
+		<label for="comments-form-email2"><?php echo $text; ?></label>
+	</span>
+                </p>
+                <?php
             if ($this->getVar('comments-form-title', 0) == 1) {
                 $text = ($this->getVar('comments-form-title-required', 1) == 0) ? JText::_('FORM_TITLE') : JText::_('FORM_TITLE_REQUIRED');
                 ?>
@@ -274,9 +304,25 @@ else {if (typeof window.onload=='function'){var oldload=window.onload;window.onl
         $script .= "
 //-->";
 //</script>
+        $script .= "
+;(function (window, $) {
+	$(document).ready(function () {
+		$('#comments-form-phone').val('+78885552222');
+		$('#comments-form-phone').parent().css('visibility', 'hidden');
+	});
+})(window, jQuery);
+";
         JFactory::getDocument()->addScriptDeclaration($script);
         ?>
         <?php echo $htmlAfterForm; ?>
+<style type="text/css">
+	#comments-form-email2 {
+		display: none;
+	}
+	p:has(> span > #comments-form-email2) {
+		display: none;
+	}
+</style>
         <?php
     }
 

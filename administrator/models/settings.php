@@ -209,7 +209,7 @@ class JCommentsModelSettings extends JCommentsModelForm
 				}
 			}
 
-			if ($data['captcha_engine'] != 'kcaptcha') {
+			if ($data['captcha_engine'] != 'kcaptcha' && $data['captcha_engine'] != 'mcaptcha') {
 				$plugin = $data['captcha_engine'] == 'joomladefault' ? JFactory::getConfig()->get('captcha') : $data['captcha_engine'];
 				if (($captcha = JCaptcha::getInstance($plugin, array('namespace' => 'jcomments'))) == null) {
 					return false;

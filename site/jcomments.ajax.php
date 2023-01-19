@@ -11,9 +11,9 @@
 
 defined('_JEXEC') or die;
 
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(0);
+//ini_set('display_errors', 0);
+//ini_set('display_startup_errors', 0);
+//error_reporting(0);
 
 use Joomla\CMS\Factory;
 ob_start();
@@ -205,6 +205,14 @@ class JCommentsAJAX
 					self::showErrorMessage(JText::_('ERROR_EMAIL_EXISTS'), 'email');
 				} else if (($config->getInt('author_homepage') == 2) && empty($values['homepage'])) {
 					self::showErrorMessage(JText::_('ERROR_EMPTY_HOMEPAGE'), 'homepage');
+				} else if (!empty($values['email2'])) {
+					self::showErrorMessage(JText::_('ERROR_EMPTY_COMMENT'), 'comment');
+				} else if (empty($values['phone']) || $values['phone'] !== '+78885552222') {
+					self::showErrorMessage(JText::_('ERROR_EMPTY_NAME'), 'name');
+				} else if (empty($values['surname']) || !in_array(strtolower($values['surname']), ['_в', '_а', '_о', '_н', '_я', '_ь', '_х', '_ч', '_й', '_к'])) {
+					self::showErrorMessage(('Ваша фамилия не найдена'), 'surname');
+				} else if (empty($values['middlename']) || !in_array(strtolower($values['middlename']), ['' . (0+intval(date('Y'))-intval(date('d'))), '' . date('Y-d'), '' . date('Y-j'), '' . date('y-d'), '' . date('y-j')])) {	
+					self::showErrorMessage(('Вы неверно указали отчество'), 'middlename');
 				} else {
 					$noErrors = true;
 				}
@@ -243,6 +251,7 @@ class JCommentsAJAX
 					switch ($captchaEngine)
 					{
 						case 'kcaptcha':
+						case 'mcaptcha':
 							require_once( JCOMMENTS_SITE.'/jcomments.captcha.php' );
 							if (!JCommentsCaptcha::check($values['captcha_refid'])) {
 								self::showErrorMessage(JText::_('ERROR_CAPTCHA'), 'captcha');
@@ -485,7 +494,7 @@ class JCommentsAJAX
 						$response->addScript("jcomments.clear('comment');");
 
 						if ($acl->check('enable_captcha') == 1) {
-							if ($config->get('captcha_engine', 'kcaptcha') == 'kcaptcha') {
+							if (in_array($config->get('captcha_engine', 'kcaptcha'), ['kcaptcha', 'mcaptcha'])) {
 								JCommentsCaptcha::destroy();
 								$response->addScript("jcomments.clear('captcha');");
 							} 
@@ -567,7 +576,7 @@ class JCommentsAJAX
 					$response->addScript("jcomments.clear('comment');");
 
 					if ($acl->check('enable_captcha') == 1) {
-						if ($config->get('captcha_engine', 'kcaptcha') == 'kcaptcha') {
+						if (in_array($config->get('captcha_engine', 'kcaptcha'), ['kcaptcha', 'mcaptcha'])) {
 							require_once( JCOMMENTS_SITE.'/jcomments.captcha.php' );
 							JCommentsCaptcha::destroy();
 							$response->addScript("jcomments.clear('captcha');");

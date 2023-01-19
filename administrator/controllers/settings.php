@@ -60,7 +60,7 @@ class JCommentsControllerSettings extends JCommentsControllerLegacy
 		}
 
 		$captchaEngine = JCommentsFactory::getConfig()->get('captcha_engine', 'kcaptcha');
-		if ($captchaEngine == 'kcaptcha') {
+		if ($captchaEngine == 'kcaptcha' || $captchaEngine == 'mcaptcha') {
 			if (!extension_loaded('gd') || !function_exists('imagecreatefrompng')) {
 				JFactory::getApplication()->enqueueMessage(JText::_('A_WARNINGS_PHP_GD'), 'warning');
 			}

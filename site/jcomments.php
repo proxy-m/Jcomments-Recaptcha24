@@ -32,7 +32,7 @@ switch (trim($jc_task)) {
 	case 'captcha':
 		$config = JCommentsFactory::getConfig();
 		$captchaEngine = $config->get('captcha_engine', 'kcaptcha');
-		if ($captchaEngine == 'kcaptcha' || $config->getInt('enable_plugins') == 0) {
+		if ($captchaEngine == 'kcaptcha' || $captchaEngine == 'mcaptcha' || $config->getInt('enable_plugins') == 0) {
 			require_once(JCOMMENTS_SITE . '/jcomments.captcha.php');
 			JCommentsCaptcha::image();
 		} else {
@@ -344,7 +344,7 @@ class JComments
 
 			if ($acl->check('enable_captcha') == 1) {
 				$captchaEngine = $config->get('captcha_engine', 'kcaptcha');
-				if ($captchaEngine != 'kcaptcha') {
+				if ($captchaEngine != 'kcaptcha' && $captchaEngine != 'mcaptcha') {
 					JCommentsEventHelper::trigger('onJCommentsCaptchaJavaScript');
 				}
 			}
@@ -447,7 +447,7 @@ class JComments
 				$tmpl->addVar('tpl_form', 'comments-form-captcha', 1);
 
 				$captchaEngine = $config->get('captcha_engine', 'kcaptcha');
-				if ( ($captchaEngine == 'kcaptcha') || ($captchaEngine == 'recaptcha') || ($captchaEngine == 'recaptcha_invisible') )
+				if ( ($captchaEngine == 'kcaptcha') || ($captchaEngine == 'mcaptcha') || ($captchaEngine == 'recaptcha') || ($captchaEngine == 'recaptcha_invisible') )
 				{
 					$tmpl->addVar('tpl_form', 'comments-form-captcha-html', $captchaEngine);
 				}

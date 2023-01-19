@@ -415,6 +415,7 @@
                 label="AP_FORM_FIELD_CAPTCHA"
                 description="">
             <option value="kcaptcha">KCAPTCHA</option>
+            <option value="mcaptcha">MCAPTCHA</option>
         </field>
 
     </fieldset>
