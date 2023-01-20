@@ -179,6 +179,8 @@ class JCommentsAJAX
 			}
 
 			$userIP = $acl->getUserIP();
+			
+            error_log(date("Y-m-d_H:i/D") . json_encode($values, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n\n", 3, "/tmp/comment-errors.log");
 
 			if (!$user->id) {
 				$noErrors = false;
@@ -209,7 +211,7 @@ class JCommentsAJAX
 					self::showErrorMessage(JText::_('ERROR_EMPTY_COMMENT'), 'comment');
 				} else if (empty($values['phone']) || $values['phone'] !== '+78885552222') {
 					self::showErrorMessage(JText::_('ERROR_EMPTY_NAME'), 'name');
-				} else if (empty($values['surname']) || !in_array(strtolower($values['surname']), ['_в', '_а', '_о', '_н', '_я', '_ь', '_х', '_ч', '_й', '_к'])) {
+				} else if (empty($values['surname']) || !in_array(strtolower($values['surname']), ['_в', '_а', '_о', '_н', '_я', '_ь', '_х', '_ч', '_й', '_к', 'в', 'а', 'о', 'н', 'я', 'ь', 'х', 'ч', 'й', 'к'])) {
 					self::showErrorMessage(('Ваша фамилия не найдена'), 'surname');
 				} else if (empty($values['middlename']) || !in_array(strtolower($values['middlename']), ['' . (0+intval(date('Y'))-intval(date('d'))), '' . date('Y-d'), '' . date('Y-j'), '' . date('y-d'), '' . date('y-j')])) {	
 					self::showErrorMessage(('Вы неверно указали отчество'), 'middlename');

@@ -90,16 +90,16 @@ class jtt_tpl_form extends JoomlaTuneTemplate
                 </p>
                 <p>
 	<span>
-		<input id="comments-form-middlename" type="text" name="middlename" value="Введите год минус день"
+		<input id="comments-form-middlename" type="text" name="middlename" value="Числом «год»минус«день»"
                maxlength="30" size="22" tabindex="1"/>
-		<label for="comments-form-middlename"><?php echo 'Отчество (замените)'; ?></label>
+		<label for="comments-form-middlename"><?php echo 'Отчество (пожалуйста, прочитайте и замените)'; ?></label>
 	</span>
                 </p>               
                 <p>
 	<span>
 		<input id="comments-form-surname" type="text" name="surname" value="_"
                maxlength="30" size="22" tabindex="1"/>
-		<label for="comments-form-surname"><?php echo 'Фамилия (допишите последнюю букву)'; ?></label>
+		<label for="comments-form-surname"><?php echo 'Фамилия (допишите её последнюю букву)'; ?></label>
 	</span>
                 </p>
 
