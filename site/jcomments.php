@@ -322,6 +322,7 @@ class JComments
 		$config = JCommentsFactory::getConfig();
 
 		if ($acl->canComment()) {
+			$tmpl->addVar('tpl_form', 'comments_additional_question', $config->get('comments_additional_question'));
 			if ($config->getInt('comments_locked') == 1) {
 				$message = $config->get('message_locked');
 

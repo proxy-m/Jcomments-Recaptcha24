@@ -418,6 +418,21 @@
             <option value="mcaptcha">MCAPTCHA</option>
         </field>
 
+        <field
+                name="comments_additional_question"
+                type="text"
+                class="inputbox"
+                default="Сколько ног у осы?"
+                label="AP_COMMENTS_ADDITIONAL_QUESTION"
+                description="AP_COMMENTS_ADDITIONAL_QUESTION_DESC"/>
+
+        <field
+                name="comments_additional_answer"
+                type="text"
+                class="inputbox"
+                default="6"
+                label="AP_COMMENTS_ADDITIONAL_ANSWER"
+                description="AP_COMMENTS_ADDITIONAL_ANSWER_DESC"/>
     </fieldset>
 
     <fieldset name="restrictions">

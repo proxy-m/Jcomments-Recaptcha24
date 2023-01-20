@@ -199,6 +199,8 @@ class JCommentsAJAX
 				} else if (($config->get('username_maxlength') != 0)
 					&& (JCommentsText::strlen($values['name']) > $config->get('username_maxlength'))) {
 					self::showErrorMessage(JText::_('ERROR_TOO_LONG_USERNAME'), 'name');
+				} else if (!empty($config->get('comments_additional_question')) && strlen($config->get('comments_additional_question')) > 1 && !empty($config->get('comments_additional_answer')) && strtolower($values['additional-answer'] ?? '') !== strtolower($config->get('comments_additional_answer'))) {
+					self::showErrorMessage(('Wrong answer to additional question'), 'additional-answer');
 				} else if (($config->getInt('author_email') == 2) && empty($values['email'])) {
 					self::showErrorMessage(JText::_('ERROR_EMPTY_EMAIL'), 'email');
 				} else if (!empty($values['email']) && (!preg_match(_JC_REGEXP_EMAIL2, $values['email']))) {

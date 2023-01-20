@@ -105,6 +105,17 @@ class jtt_tpl_form extends JoomlaTuneTemplate
 
                 <?php
             }
+            if (!empty($this->getVar('comments_additional_question', '')) && strlen($this->getVar('comments_additional_question', '')) > 1) {
+				?>
+                <p>
+	<span>
+		<input id="comments-form-additional-question" type="text" name="additional-answer" value=""
+               maxlength="<?php echo $this->getVar('comment-name-maxlength'); ?>" size="22" tabindex="1"/>
+		<label for="comments-form-additional-question"><?php echo $this->getVar('comments_additional_question', ''); ?></label><br/>
+	</span>
+                </p>
+				<?php
+			}
             if ($this->getVar('comments-form-user-email', 1) == 1) {
                 $text = ($this->getVar('comments-form-email-required', 1) == 0) ? JText::_('FORM_EMAIL') : JText::_('FORM_EMAIL_REQUIRED');
                 ?>
