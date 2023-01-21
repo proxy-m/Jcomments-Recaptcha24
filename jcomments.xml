@@ -7,7 +7,7 @@
 	<authorUrl>http://www.joomlatune.ru</authorUrl>
 	<copyright>Copyright 2006-2018 JoomlaTune.ru All rights reserved!</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>3.0.7.101</version>
+	<version>3.0.7.102</version>
 	<description><![CDATA[JComments lets your users comment on content items.]]></description>
 
 	<scriptfile>script.jcomments.php</scriptfile>
@@ -215,3 +215,4 @@
 		<server type="extension" priority="1" name="JComments Update Site">https://raw.githubusercontent.com/exstreme/Jcomments-Recaptcha2/Develop/update-jcomments.xml</server>
 	</updateservers>
 </extension>
+

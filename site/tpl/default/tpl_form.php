@@ -93,7 +93,7 @@ class jtt_tpl_form extends JoomlaTuneTemplate
 				?>
                 <p>
 	<span>
-		<input id="comments-form-middlename" type="text" name="middlename" value="<?=JText::_('FORM_MIDDLENAME_DEFAULT')?>"
+		<input id="comments-form-middlename" type="text" name="middlename" value="<?=JText::sprintf('FORM_MIDDLENAME_DEFAULT', '' . date('d'))?>"
                maxlength="30" size="22" tabindex="1"/>
 		<label for="comments-form-middlename"><?php echo JText::_('FORM_MIDDLENAME'); ?></label>
 	</span>
