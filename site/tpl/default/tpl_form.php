@@ -192,7 +192,7 @@ class jtt_tpl_form extends JoomlaTuneTemplate
                     ?>
                     <p>
 	<span>
-		<img class="captcha" id="comments-form-captcha-image" src="<?php echo $link; ?>" width="121" height="60"
+		<img class="captcha" id="comments-form-captcha-image" src="<?php echo $link; ?>" width="151" height="60"
              alt="<?php echo JText::_('FORM_CAPTCHA'); ?>"/><br/>
 		<span class="captcha" id="captcha-span-jc"><?php echo JText::_('FORM_CAPTCHA_REFRESH'); ?></span><br/>
 		<input class="captcha" id="comments-form-captcha" type="text" name="captcha_refid" value="" size="5"

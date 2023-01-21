@@ -18,10 +18,37 @@ defined('_JEXEC') or die;
 
 # See kcaptcha_config.php for customization
 
+function crypto_rand0 ($min,$max,$pedantic=True) {
+    $diff = $max - $min;
+    if ($diff <= 0) return $min; // not so random...
+    $range = $diff + 1; // because $max is inclusive
+    $bits = ceil(log(($range),2));
+    $bytes = ceil($bits/8.0);
+    $bits_max = 1 << $bits;
+    // e.g. if $range = 3000 (bin: 101110111000)
+    //  +--------+--------+
+    //  |....1011|10111000|
+    //  +--------+--------+
+    //  bits=12, bytes=2, bits_max=2^12=4096
+    $num = 0;
+    do {
+        $num = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes))) % $bits_max;
+        if ($num >= $range) {
+            if ($pedantic) continue; // start over instead of accepting bias
+            // else
+            $num = $num % $range;  // to hell with security
+        }
+        break;
+    } while (True);  // because goto attracts velociraptors
+    return $num + $min;
+}
+
 class KCAPTCHA{
 
 	// generates keystring and image
 	function __construct(){
+		srand(random_int(crypto_rand0(19, 9999), 2147483647)); // The first line is required for PHP less 7.1.0. (In future srand is alias to mt_srand)
+		mt_srand(random_int(crypto_rand0(19, 9999), 2147483647));
 
 		require(dirname(__FILE__).'/kcaptcha_config.php');
 		$fonts=array();
@@ -41,8 +68,11 @@ class KCAPTCHA{
 			// generating random keystring
 			while(true){
 				$this->keystring='';
-				for($i=0;$i<$length;$i++){
-					$this->keystring.=$allowed_symbols[mt_rand(0,strlen($allowed_symbols)-1)];
+				for($i=0;$i<$length/2;$i++){
+					$this->keystring.=$allowed_symbols[rand(0,strlen($allowed_symbols)-1)];
+				}
+				for($i=$length/2;$i<$length;$i++){
+					$this->keystring.=$allowed_symbols[random_int(0,strlen($allowed_symbols)-1)];
 				}
 				if(!preg_match('/cp|cb|ck|c6|c9|rn|rm|mm|co|do|cl|db|qp|qb|dp|ww/', $this->keystring)) break;
 			}
