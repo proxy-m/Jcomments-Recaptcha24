@@ -42,24 +42,13 @@ class JCommentsCaptcha
 
 		@session_start();
 		$config = JCommentsFactory::getConfig();
-		$captchaEngine = 'mcaptcha'; ///$config->get('captcha_engine', 'kcaptcha');
-//		if ($captchaEngine == 'kcaptcha') {
-//			if (!class_exists('KCAPTCHA')) {
-//				require_once(JCOMMENTS_LIBRARIES.'/kcaptcha/kcaptcha.php');
-//			}
-//
-//			$captcha = new KCAPTCHA();
-//			$_SESSION['comments-captcha-code'] = $captcha->getKeyString();
-//		} elseif ($captchaEngine == 'mcaptcha') {
-			if (!class_exists('MCAPTCHA')) {
-				require_once(JCOMMENTS_LIBRARIES.'/mcaptcha/mcaptcha.php');
-			}
+		$captchaEngine = 'kcaptcha'; ///$config->get('captcha_engine', 'kcaptcha');
+		if (!class_exists('KCAPTCHA')) {
+			require_once(JCOMMENTS_LIBRARIES.'/kcaptcha/kcaptcha.php');
+		}
 
-			$captcha = new MCAPTCHA();
-			$_SESSION['comments-captcha-code'] = $captcha->getKeyString();			
-//		} else {
-//			exit(3);
-//		}
+		$captcha = new KCAPTCHA();
+		$_SESSION['comments-captcha-code'] = $captcha->getKeyString();
 		exit;
 	}
 }
