@@ -24,7 +24,7 @@
 		<description>JComments lets your users comment on content items</description>
 		<element>com_jcomments</element>
 		<type>component</type>
-		<version>3.0.7.100</version>
+		<version>3.0.7.101</version>
 		<infourl title="JComments">https://github.com/proxy-m/Jcomments-Recaptcha24</infourl>
 		<tags>
 			<tag>Stable</tag>

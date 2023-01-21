@@ -18,7 +18,7 @@ class JCommentsVersion
 	/** @var int Main Release Level */
 	var $RELEASE = '3.0';
 	/** @var int Sub Release Level */
-	var $DEV_LEVEL = '7.100';
+	var $DEV_LEVEL = '7.101';
 	/** @var string Development Status */
 	var $DEV_STATUS = '';
 	/** @var int Build Number */

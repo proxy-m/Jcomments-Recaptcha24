@@ -323,6 +323,8 @@ class JComments
 
 		if ($acl->canComment()) {
 			$tmpl->addVar('tpl_form', 'comments_additional_question', $config->get('comments_additional_question'));
+			$tmpl->addVar('tpl_form', 'show_comment_surname', $config->getInt('show_comment_surname', 0));
+			$tmpl->addVar('tpl_form', 'show_comment_middlename', $config->getInt('show_comment_middlename', 1));
 			if ($config->getInt('comments_locked') == 1) {
 				$message = $config->get('message_locked');
 

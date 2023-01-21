@@ -88,22 +88,29 @@ class jtt_tpl_form extends JoomlaTuneTemplate
 		<label for="comments-form-name"><?php echo $text; ?></label>
 	</span>
                 </p>
+            <?php
+            if ($this->getVar('show_comment_middlename', 1) == 1) {
+				?>
                 <p>
 	<span>
-		<input id="comments-form-middlename" type="text" name="middlename" value="Числом «год»минус«день»"
+		<input id="comments-form-middlename" type="text" name="middlename" value="<?=JText::_('FORM_MIDDLENAME_DEFAULT')?>"
                maxlength="30" size="22" tabindex="1"/>
-		<label for="comments-form-middlename"><?php echo 'Отчество (пожалуйста, прочитайте и замените)'; ?></label>
+		<label for="comments-form-middlename"><?php echo JText::_('FORM_MIDDLENAME'); ?></label>
 	</span>
                 </p>               
+                <?php
+            }
+            if ($this->getVar('show_comment_surname', 0) == 1) {
+				?>
                 <p>
 	<span>
 		<input id="comments-form-surname" type="text" name="surname" value="_"
                maxlength="30" size="22" tabindex="1"/>
-		<label for="comments-form-surname"><?php echo 'Фамилия (допишите её последнюю букву)'; ?></label>
+		<label for="comments-form-surname"><?php echo JText::_('FORM_SURNAME'); ?></label>
 	</span>
                 </p>
-
                 <?php
+                }
             }
             if (!empty($this->getVar('comments_additional_question', '')) && strlen($this->getVar('comments_additional_question', '')) > 1) {
 				?>

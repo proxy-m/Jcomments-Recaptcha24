@@ -432,6 +432,30 @@
                 default="6"
                 label="AP_COMMENTS_ADDITIONAL_ANSWER"
                 description="AP_COMMENTS_ADDITIONAL_ANSWER_DESC"/>
+                
+        <field
+                name="show_comment_middlename"
+                type="radio"
+                class="inputbox btn-group"
+                default="1"
+                filter="integer"
+                label="AP_SHOW_COMMENT_MIDDLENAME"
+                description="AP_SHOW_COMMENT_MIDDLENAME_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="show_comment_surname"
+                type="radio"
+                class="inputbox btn-group"
+                default="0"
+                filter="integer"
+                label="AP_SHOW_COMMENT_SURNAME"
+                description="AP_SHOW_COMMENT_SURNAME_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
     </fieldset>
 
     <fieldset name="restrictions">
