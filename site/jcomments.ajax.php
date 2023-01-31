@@ -163,6 +163,31 @@ class JCommentsAJAX
 				// TODO: add appropriate error message
 			 	return $response;
 			}
+			
+			function multilingual_mb_str_word_count (string $string, int $format = 0) {
+				if ($format < 0 || $format >= 2) {
+					throw new Exception('format 2 and more is unsupported');
+					return null;
+				}
+				if (empty($string) || trim($string) == '') {
+					if ($format == 1) {
+						return array();
+					} else {
+						return 0;
+					}
+				}
+				$string = str_replace(['\t', '\r', '\n', '\v', '\xC2\xA0', '\xC2\xAD', '\xC2\xA0', '\xC2\x85', '\xE2\x80\xA8', '\xE2\x80\xA8'], ' ', $string);
+				$string = str_replace([',', ';', '.', ':', '?', '!', '¿', '¡'], ' ', $string);
+				$string = str_replace(['', '', '', '', '―', '‒', '-', '−'], ' ', $string);
+				$string = str_replace(['(', ')', '[', ']', '<', '>', '{', '}'], ' ', $string);
+				$string = trim(preg_replace('/\s+/', ' ', $string));
+				$a = explode(' ', $string);
+				
+				if ($format == 1) {
+					return $a;	
+				}
+				return count($a);
+			}
 
 			$commentsPerObject = $config->getInt('max_comments_per_object');
 			if ($commentsPerObject > 0) {
@@ -180,7 +205,7 @@ class JCommentsAJAX
 
 			$userIP = $acl->getUserIP();
 			
-            error_log(date("Y-m-d_H:i/D") . json_encode($values, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n\n", 3, "/tmp/comment-errors.log");
+            ///error_log(date("Y-m-d_H:i/D") . json_encode($values, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n\n", 3, "/tmp/comment-errors.log");
 
 			if (!$user->id) {
 				$noErrors = false;
@@ -248,6 +273,10 @@ class JCommentsAJAX
 				&& ($acl->check('enable_comment_length_check') == 1)
 				&& (JCommentsText::strlen($values['comment']) < $config->get('comment_minlength'))) {
 				self::showErrorMessage(JText::_('ERROR_YOUR_COMMENT_IS_TOO_SHORT'), 'comment');
+			} else if (multilingual_mb_str_word_count($values['comment']) <= 2) {
+				self::showErrorMessage(JText::_('ERROR_YOUR_COMMENT_IS_TOO_SHORT') . ' by words', 'comment');
+			} else if (multilingual_mb_str_word_count($values['comment']) > 4096) {
+				self::showErrorMessage(JText::_('ERROR_YOUR_COMMENT_IS_TOO_LONG') . ' by words', 'comment');
 			} else {
 				if ($acl->check('enable_captcha') == 1) {
 					$captchaEngine = $config->get('captcha_engine', 'kcaptcha');
